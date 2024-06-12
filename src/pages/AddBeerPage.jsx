@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 function AddBeerPage() {
@@ -22,7 +22,7 @@ function AddBeerPage() {
   const handleAttenuationLevel = (e) => setAttenuationLevel(e.target.value);
   const handleContributedBy = (e) => setContributedBy(e.target.value);
 
-  const nav = useNavigate();
+  const navigate = useNavigate();
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -32,18 +32,16 @@ function AddBeerPage() {
       description: description,
       image_url: imageUrl,
       first_brewed: firstBrewed,
-      brewer_tips: brewersTips,
+      brewers_tips: brewersTips,
       attenuation_level: attenuationLevel,
       contributed_by: contributedBy,
     };
     try {
-      // useEffect(() => {
       const response = await axios.post(
         "https://ih-beers-api2.herokuapp.com/beers/new",
         newBeer
       );
-      console.log("response:", response);
-      nav("/new-beer");
+      navigate("/new-beer");
     } catch (error) {
       console.error("Error  creating new Beer:", error);
     }
